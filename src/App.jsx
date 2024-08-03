@@ -6,15 +6,19 @@ import Actors from './components/Actors/Actors';
 import NavBar from './components/NavBar/NavBar';
 import MovieInformation from './components/MovieInformation/MovieInformation';
 import Profile from './components/Profile/Profile';
+import useStyles from './styles';
 
 const App = () => {
+
+    const classes = useStyles();
+
     return (
-        <div>
+        <div className={classes.root}>
             <CssBaseline />
             <BrowserRouter>
                 <NavBar/>
-                <main>
-                  <div>
+                <main className={classes.content}>
+                  <div className={classes.toolbar}>
                 <Routes>
                     <Route path='/movie/:id' element={<MovieInformation/>} />
                     <Route path='/' element={<Movies/>} /> 
