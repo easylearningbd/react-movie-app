@@ -13,6 +13,12 @@ export default makeStyles((theme) => ({
             flexWrap: 'wrap',
         }
     },
+    menuButton: {
+        marginRight: theme.spacing(2),
+        [theme.breakpoints.up('sm')]:{
+            display: 'none'
+        }
+    },
     
     
 }));
