@@ -1,6 +1,6 @@
 import { makeStyles } from "@mui/styles";
 
-const drawerWidth = 5;
+const drawerWidth = 0;
 
 export default makeStyles((theme) => ({
     root:{
