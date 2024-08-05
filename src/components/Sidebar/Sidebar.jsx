@@ -3,6 +3,7 @@ import { Divider, List,ListItem, ListItemText, ListSubheader, ListItemIcon, Box,
 import { useTheme } from '@mui/styles';
 import useStyles from './sidestyles';
 import { Link } from 'react-router-dom';
+import { useGetGenresQuery } from '../../services/TMDB';
 
 const redLogo = 'https://i.ibb.co/ft4skBS/logored.png';
 const blueLogo = 'https://i.ibb.co/5K6vdzx/logoblue.png';
@@ -23,6 +24,9 @@ const demoCategories = [
 const Sidebar = ({setMobileOpen}) => {
     const theme = useTheme();
     const classes = useStyles();
+    const { data, isFetching } = useGetGenresQuery();
+    // console.log(data);
+
     return (
         <>
           <Link to="/" className={classes.imageLink} >
@@ -35,7 +39,7 @@ const Sidebar = ({setMobileOpen}) => {
 
         <List>
             <ListSubheader>Categories </ListSubheader>
-            {demoCategories.map(({ label, value }) => (
+            {categories.map(({ label, value }) => (
                 <Link key={value} className={classes.links} to="/">
                     <ListItem onClick={() => {}} button>
                         {/* <ListItemIcon>
@@ -52,15 +56,19 @@ const Sidebar = ({setMobileOpen}) => {
 
         <List>
             <ListSubheader>Genres </ListSubheader>
-            {categories.map(({ label, value }) => (
-                <Link key={value} className={classes.links} to="/">
+            {isFetching ? (
+                <Box display="flex" justifyContent='center'>
+                    <CircularProgress/>
+                </Box>
+            ): 
+            data.genres.map(({ name, id }) => (
+                <Link key={name} className={classes.links} to="/">
                     <ListItem onClick={() => {}} button>
                         {/* <ListItemIcon>
                             <img src={redLogo} className={classes.genreImage} height={30} />
                         </ListItemIcon> */}
-                        <ListItemText primary={label} />
-                    </ListItem>
-                
+                        <ListItemText primary={name} />
+                    </ListItem> 
                 </Link>
             ) )}
        </List>   
