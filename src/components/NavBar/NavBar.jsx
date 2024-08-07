@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AppBar, IconButton, Toolbar, Drawer, Button, Avatar, useMediaQuery } from '@mui/material';
 import { Menu, AccountCircle, Brightness4, Brightness7 } from '@mui/icons-material';
 import { useTheme } from '@mui/material/styles';
@@ -6,7 +6,7 @@ import useStyles from './navstyles';
 import { Link } from 'react-router-dom';
 import Sidebar from '../Sidebar/Sidebar';
 import Search from '../Search/Search';
-import { fetchToken } from '../../utils';
+import { fetchToken,createSessionId,moviesApi } from '../../utils';
 
 const NavBar = () => {
 
@@ -15,6 +15,23 @@ const NavBar = () => {
     const theme = useTheme();
     const isAuthenticated = false;
     const [mobileOpen, setMobileOpen] = useState(false);
+
+    const token = localStorage.getItem('request_token');
+    const sessionIdFromLocalStorage = localStorage.getItem('session_id');
+
+    useEffect(() => {
+        const logInUser = async () => {
+            if (token) {
+                if (sessionIdFromLocalStorage) {
+                    const {data: userData} = await moviesApi.get(`/account?session_id=${sessionIdFromLocalStorage}`); 
+                }else{
+                    const sessionId = await createSessionId();
+                    const { data: userData } = await moviesApi.get(`/account?session_id=${sessionId}`);  
+                } 
+            }
+        };
+        logInUser();
+    },[token]);
 
     return (
         <>
