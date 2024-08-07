@@ -12,7 +12,7 @@ const Search = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const location = useLocation();
-     
+   
     
     const handleKeyPress = (event) => {
         if (event.key === 'Enter') {
@@ -27,7 +27,7 @@ const Search = () => {
             <TextField
                 onKeyPress = {handleKeyPress}
                 value={query}
-                onChange={() => {}}
+                onChange={(e) => setQuery(e.target.value)}
                 variant='standard'
                 InputProps={{
                     className: classes.input,
