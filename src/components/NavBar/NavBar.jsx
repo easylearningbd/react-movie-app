@@ -7,15 +7,20 @@ import { Link } from 'react-router-dom';
 import Sidebar from '../Sidebar/Sidebar';
 import Search from '../Search/Search';
 import { fetchToken,createSessionId,moviesApi } from '../../utils';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser,userSelector } from '../../features/auth';
 
 const NavBar = () => {
 
     const classes = useStyles();
     const isMobile = useMediaQuery('(max-width:600px)');
     const theme = useTheme();
-    const isAuthenticated = false;
+
+    const { isAuthenticated, user} = useSelector(userSelector);
+
     const [mobileOpen, setMobileOpen] = useState(false);
 
+    const dispatch = useDispatch();
     const token = localStorage.getItem('request_token');
     const sessionIdFromLocalStorage = localStorage.getItem('session_id');
 
@@ -24,9 +29,12 @@ const NavBar = () => {
             if (token) {
                 if (sessionIdFromLocalStorage) {
                     const {data: userData} = await moviesApi.get(`/account?session_id=${sessionIdFromLocalStorage}`); 
+                    dispatch(setUser(userData));
+
                 }else{
                     const sessionId = await createSessionId();
-                    const { data: userData } = await moviesApi.get(`/account?session_id=${sessionId}`);  
+                    const { data: userData } = await moviesApi.get(`/account?session_id=${sessionId}`);
+                    dispatch(setUser(userData));  
                 } 
             }
         };
