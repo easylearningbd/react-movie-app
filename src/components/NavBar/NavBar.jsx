@@ -74,7 +74,7 @@ const NavBar = () => {
                         className={classes.linkButton}
                         onClick={() => {}}
                     >
-                        {!isMobile && <> My Movies &nbsp; </>}
+                        {!isMobile && <> {user.username} &nbsp; </>}
                         <Avatar
                             style={{ width: 30, height:30}}
                             alt='Profile Image'
