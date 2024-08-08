@@ -4,6 +4,9 @@ import { Movie as MovieIcon, Theaters, Language, PlusOne, Favorite, FavoriteBord
 import { Link, useParams } from 'react-router-dom';
 import { useGetMovieQuery } from '../../services/TMDB';
 import useStyles from './informationstyles';
+import genreIcons from '../../assets/genres';
+import { useDispatch } from 'react-redux';
+import { selectGenreOrCategory } from '../../features/currentGenreOrCategory';
 
 const MovieInformation = () => {
 
@@ -11,6 +14,7 @@ const MovieInformation = () => {
     const { data, isFetching, error } = useGetMovieQuery(id);
     console.log(data);
     const classes = useStyles();
+    const dispatch = useDispatch();
 
     if (isFetching) {
         return(
@@ -47,9 +51,24 @@ const MovieInformation = () => {
         </Box>
         <Typography align='center' gutterBottom style={{ fontSize: '16px'  }}>
         {data?.runtime}min | Language: {data?.spoken_languages[0].name}
-        </Typography>
-    
+        </Typography> 
     </Grid>    
+
+    <Grid item className={classes.genresContainer}>
+        {data?.genres?.map((genre) => (
+            <Link 
+            key={genre.name}
+            className={classes.links}
+            to='/'
+            onClick={() => dispatch(selectGenreOrCategory(genre.id))}
+            >
+                <img src={genreIcons[genre.name.toLowerCase()]} className={classes.genreImage} height={30}  />
+                <Typography color='textPrimary' variant='subtitle1'>
+                {genre?.name}
+                </Typography>
+            </Link>
+        ))}
+    </Grid>
 
 
     </Grid>    
