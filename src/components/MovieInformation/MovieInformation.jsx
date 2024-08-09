@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, Typography, Button, ButtonGroup, Grid, Box, CircularProgress, useMediaQuery, Rating } from '@mui/material';
 import { Movie as MovieIcon, Theaters, Language, PlusOne, Favorite, FavoriteBorderOutlined, Remove, ArrowBack } from '@mui/icons-material';
 import { Link, useParams } from 'react-router-dom';
-import { useGetMovieQuery } from '../../services/TMDB';
+import { useGetMovieQuery, useGetRecommendationsQuery } from '../../services/TMDB';
 import useStyles from './informationstyles';
 import genreIcons from '../../assets/genres';
 import { useDispatch } from 'react-redux';
@@ -12,9 +12,12 @@ const MovieInformation = () => {
 
     const { id } = useParams();
     const { data, isFetching, error } = useGetMovieQuery(id);
-    console.log(data);
+    // console.log(data);
     const classes = useStyles();
     const dispatch = useDispatch();
+
+    const { data: recommendations, isFetching: isRecommendationsFetching } = useGetRecommendationsQuery({ list:'recommendations', movie_id:id });
+    console.log(recommendations);
 
     const isMovieFavorited = false;
     const isMovieWatchlisted = false;
