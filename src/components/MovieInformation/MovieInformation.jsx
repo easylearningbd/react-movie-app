@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, Typography, Button, ButtonGroup, Grid, Box, CircularProgress, useMediaQuery, Rating } from '@mui/material';
-import { Movie as MovieIcon, Theaters, Language, PlusOne, Favorite, FavoriteBorderOulined, Remove, ArrowBack } from '@mui/icons-material';
+import { Movie as MovieIcon, Theaters, Language, PlusOne, Favorite, FavoriteBorderOutlined, Remove, ArrowBack } from '@mui/icons-material';
 import { Link, useParams } from 'react-router-dom';
 import { useGetMovieQuery } from '../../services/TMDB';
 import useStyles from './informationstyles';
@@ -15,6 +15,17 @@ const MovieInformation = () => {
     console.log(data);
     const classes = useStyles();
     const dispatch = useDispatch();
+
+    const isMovieFavorited = false;
+    const isMovieWatchlisted = false;
+
+    const addToFavorites = async () => {
+
+    }
+
+    const addToWatchlist = async () => {
+        
+    }
 
     if (isFetching) {
         return(
@@ -104,14 +115,33 @@ const MovieInformation = () => {
 
                 <Button target='_blank' rel='noopener noreferrer' href={`https://www.imdb.com/title/${data?.imdb_id}`} endIcon={<MovieIcon/>}> IMDB </Button>
 
-                <Button onClick={() => {}} href="#" endIcon={<Theaters/>}> Trailer </Button>
-
-            </ButtonGroup>
-
+                <Button onClick={() => {}} href="#" endIcon={<Theaters/>}> Trailer </Button> 
+            </ButtonGroup> 
         </Grid>
+    
+    <Grid item xs={12} sm={6} className={classes.buttonsContainer}>
+        <ButtonGroup size='medium' variant='outlined'>
+            <Button onClick={addToFavorites} endIcon={isMovieFavorited ? <FavoriteBorderOutlined/> : <Favorite/> }>
+                { isMovieFavorited ? 'Unfavorite' : 'Favorite'}
+            </Button>
 
-    </div>
+            <Button onClick={addToWatchlist} endIcon={isMovieWatchlisted ? <Remove/> : <PlusOne/> }>
+                 Watchlist
+            </Button>
 
+            <Button endIcon={ <ArrowBack/> } sx={{ borderColor: 'primary.main' }} > 
+               <Typography style={{ textDecoration: 'none' }} component={Link} to='/' color='inherit' variant='subtitle2'>
+                Back
+               </Typography>
+            </Button>
+
+        </ButtonGroup>
+
+    </Grid>
+
+
+
+    </div> 
 </Grid>
 
 
