@@ -52,6 +52,14 @@ export default makeStyles((theme) => ({
         height: '6em',
         objectFit: 'cover',
         borderRadius: '1Opx'
+    },
+    buttonsContainer: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        width: '100%',
+        [theme.breakpoints.down('sm')]: {
+            flexDirection: 'column'
+        }
     }
 
    
