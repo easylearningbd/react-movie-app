@@ -7,6 +7,7 @@ import useStyles from './informationstyles';
 import genreIcons from '../../assets/genres';
 import { useDispatch } from 'react-redux';
 import { selectGenreOrCategory } from '../../features/currentGenreOrCategory';
+import MovieList from '../MovieList/MovieList';
 
 const MovieInformation = () => {
 
@@ -138,18 +139,29 @@ const MovieInformation = () => {
                </Typography>
             </Button>
 
-        </ButtonGroup>
-
-    </Grid>
-
-
-
+        </ButtonGroup> 
+    </Grid> 
     </div> 
-</Grid>
+</Grid> 
+
+    </Grid>  
+
+
+    <Box marginTop='5rem' width='100%'>
+    <Typography variant='h4' gutterBottom align='center'>
+        You might also like
+    </Typography>
+    {recommendations
+    ? <MovieList movies={recommendations} numberOfMovies={12} />
+    :
+    <Box>Sorry Nothing was found</Box>
+    }
+
+   </Box>
 
 
 
-    </Grid>   
+
     </Grid>
     );
 };
