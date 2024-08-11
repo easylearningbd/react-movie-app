@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Button, CircularProgress, Grid, Typography }  from '@mui/material';
 import { ArrowBack, Gif } from '@mui/icons-material';
 import useStyles from './actorstyles';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useGetActorsDetailsQuery } from '../../services/TMDB';
+import { useGetActorsDetailsQuery, useGetMoviesByActorIdQuery } from '../../services/TMDB';
+import MovieList from '../MovieList/MovieList';
  
 
 const Actors = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const classes = useStyles();
+    const [page, setPage] = useState(1);
     const { data, isFetching, error} = useGetActorsDetailsQuery(id);
+    const { data: movies } = useGetMoviesByActorIdQuery({id,page})
     //  console.log(data);
 
     if (isFetching) {
@@ -51,12 +54,15 @@ const Actors = () => {
         </Button>
         <Button startIcon={<ArrowBack/>} onClick={() => navigate(-1)} color='primary'>Go Back</Button>
 
-    </Box>
-
-    </Grid>
-
-
+    </Box> 
+    </Grid> 
   </Grid>
+
+  <Box margin='2rem 0'>
+    <Typography variant='h4' gutterBottom align='center'>{data?.name} Movies </Typography>
+    {movies && <MovieList movies={movies} numberOfMovies={12} /> }
+
+  </Box>
             
    </>
     );

@@ -52,10 +52,16 @@ export const tmdbApi = createApi({
         query: ( id ) => `/person/${id}?api_key=${tmdbApiKey}`
     }),
 
+    // Get Actor Movie List 
+    getMoviesByActorId: builder.query({
+        query: ( { id, page} ) => `/discover/movie?with_cast=${id}&page=${page}&api_key=${tmdbApiKey}`
+    }),
+
+
 
 
     }),
 });
 
-export const { useGetMoviesQuery, useGetGenresQuery,useGetMovieQuery,useGetRecommendationsQuery, useGetActorsDetailsQuery } = tmdbApi;
+export const { useGetMoviesQuery, useGetGenresQuery,useGetMovieQuery,useGetRecommendationsQuery, useGetActorsDetailsQuery, useGetMoviesByActorIdQuery } = tmdbApi;
 
