@@ -41,8 +41,8 @@ const Profile = () => {
         </Typography>
         : (
             <Box>
-             <RatedCards titile='Favorite Movies' data={favoriteMovies} />
-             <RatedCards titile='Favorite Movies' data={watchlistMovies} />
+             <RatedCards title='Favorite Movies' data={favoriteMovies} />
+             <RatedCards title='WatchList Movies' data={watchlistMovies} />
             </Box>
         )
          
