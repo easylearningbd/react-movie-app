@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Divider, List,ListItem, ListItemText, ListSubheader, ListItemIcon, Box, CircularProgress } from '@mui/material';
 import { useTheme } from '@mui/styles';
 import useStyles from './sidestyles';
@@ -27,6 +27,10 @@ const Sidebar = ({setMobileOpen}) => {
     const dispatch = useDispatch();
     const { genreIdOrCategoryName } = useSelector((state) => state.currentGenreOrCategory);
     // console.log(genreIdOrCategoryName);
+
+    useEffect(() => {
+        setMobileOpen(false);
+    },[genreIdOrCategoryName]);
 
     return (
         <>

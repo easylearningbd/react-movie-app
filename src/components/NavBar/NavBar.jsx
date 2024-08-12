@@ -81,7 +81,7 @@ const NavBar = () => {
                         <Avatar
                             style={{ width: 30, height:30}}
                             alt='Profile Image'
-                            src='https://c8.alamy.com/comp/2G7FT9E/default-avatar-photo-placeholder-grey-profile-picture-icon-man-in-t-shirt-2G7FT9E.jpg'
+                            src={`https://www.themoviedb.org/t/p/w64_and_h64_face${user?.avatar?.tmdb?.avatar_path}`}
                          />
 
                     </Button>
