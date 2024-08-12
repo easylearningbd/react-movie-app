@@ -3,6 +3,7 @@ import alanBtn from '@alan-ai/alan-sdk-web';
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ColorModeContext } from "./utils/ToggleColorMode";
+import { fetchToken } from "./utils";
 
 const useAlan = () => {
 
@@ -17,10 +18,15 @@ const useAlan = () => {
             onCommand: ({ command, mode}) => {
               if (command === 'changeMode') {
                 if (mode === 'light') {
-                    setMode('light')
+                    setMode('light');
                 } else{
-                    setMode('dark')
+                    setMode('dark');
                 }
+              } else if(command === 'login'){
+                fetchToken();
+              } else if (command === 'logout') {
+                localStorage.clear();
+                window.location.href = '/';
               }
             }
         });
