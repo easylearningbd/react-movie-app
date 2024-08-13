@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ColorModeContext } from "./utils/ToggleColorMode";
 import { fetchToken } from "./utils";
-import { selectGenreOrCategory } from "./features/currentGenreOrCategory";
+import { searchMovie, selectGenreOrCategory } from "./features/currentGenreOrCategory";
 
 const useAlan = () => {
 
@@ -16,7 +16,7 @@ const useAlan = () => {
         alanBtn({
             key: '8e0b083e795c924d0f062a79df525cba2e956eca572e1d8b807a3e2338fdd0dc/stage',
             host: 'v1.alan.app',
-            onCommand: ({ command, mode, genres, genreOrCategory}) => { 
+            onCommand: ({ command, mode, genres, genreOrCategory,query}) => { 
             if (command === 'chooseGenre') {
                 const foundGenre = genres.find((g) => g.name.toLowerCase() === genreOrCategory.toLowerCase());
 
@@ -39,10 +39,12 @@ const useAlan = () => {
               } else if (command === 'logout') {
                 localStorage.clear();
                 window.location.href = '/';
-              }
+              } else if(command === 'search'){
+                dispatch(searchMovie(query));
+              } 
             }
         });
-      }, [setMode]);
+      }, [navigate,dispatch,setMode]);
 
 
     return null;
